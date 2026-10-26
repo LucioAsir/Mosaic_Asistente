@@ -1,0 +1,17 @@
+{
+  "background_color": "#140b06",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Mosaic Asistente",
+  "orientation": "portrait",
+  "scope": "/",
+  "short_name": "Mosaic",
+  "start_url": "./index.html",
+  "theme_color": "#2b1810",
+  "description": "App para gestionar las puntuaciones de las partidas del juego de mesa \"Mosaic Una historia de la civilización\".",
+  "id": "/?source=pwa",
+  "lang": "es",
+  "categories": [
+    "games"
+  ]
+}
