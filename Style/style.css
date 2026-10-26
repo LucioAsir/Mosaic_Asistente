@@ -1,0 +1,140 @@
+:root {
+      --roman-red: #822017;
+      --roman-dark-red: #52110B;
+      --roman-gold: #D4AF37;
+      --roman-gold-light: #F5E6B8;
+      --parchment-bg: #DFCCA8;
+      --parchment-card: rgba(251, 245, 232, 0.92);
+      --wood-dark: #26160E;
+      --wood-border: #5C3D24;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background-color: #140B06;
+      color: #2B1A10;
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100dvh;
+      overflow: hidden;
+      overscroll-behavior: none;
+    }
+
+    .cinzel { font-family: 'Cinzel', serif; }
+    .cinzel-dec { font-family: 'Cinzel Decorative', cursive; }
+
+    /* Contenedor con la textura generada dinámicamente idéntica a fondo_mosaic.jpg */
+    .mosaic-parchment-bg {
+      background-color: #E5D3B3;
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      border: 3px solid #4A2F1B;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9), inset 0 0 28px rgba(82, 52, 28, 0.35);
+    }
+
+    .parchment-card {
+      background: rgba(252, 246, 234, 0.9);
+      border: 1.5px solid #8A6A4B;
+      box-shadow: 0 1px 3px rgba(43, 26, 16, 0.12), inset 0 0 6px rgba(138, 106, 75, 0.12);
+    }
+
+    /* Cenefa de teselas romanas */
+    .mosaic-border {
+      background-image: repeating-linear-gradient(
+        90deg,
+        #822017 0px, #822017 6px,
+        #F3E6CC 6px, #F3E6CC 10px,
+        #26160E 10px, #26160E 16px,
+        #D4AF37 16px, #D4AF37 20px
+      );
+      height: 5px;
+      width: 100%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.45);
+    }
+
+    /* Botones romanos imperiales */
+    .btn-roman {
+      font-family: 'Cinzel', serif;
+      background: linear-gradient(180deg, #98281E 0%, #61150E 100%);
+      color: #FAF2E1;
+      border: 1.5px solid #D4AF37;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
+      transition: transform 0.08s ease, filter 0.12s ease;
+      cursor: pointer;
+    }
+    .btn-roman:hover { filter: brightness(1.07); }
+    .btn-roman:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      font-family: 'Cinzel', serif;
+      background: linear-gradient(180deg, #EDE0C7 0%, #CBB389 100%);
+      color: #2B1A10;
+      border: 1.5px solid #5C3D24;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      transition: transform 0.08s ease, filter 0.12s ease;
+      cursor: pointer;
+    }
+    .btn-secondary:hover { filter: brightness(1.04); }
+    .btn-secondary:active { transform: scale(0.98); }
+
+    .btn-gold {
+      font-family: 'Cinzel', serif;
+      background: linear-gradient(180deg, #F3D371 0%, #B88B28 100%);
+      color: #26160E;
+      border: 1.5px solid #4A2F1B;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      transition: transform 0.08s ease;
+      cursor: pointer;
+    }
+    .btn-gold:active { transform: scale(0.98); }
+
+    .input-parchment {
+      background-color: #FDFAF3;
+      border: 1px solid #7A583B;
+      color: #2B1A10;
+      font-family: 'EB Garamond', Georgia, serif;
+    }
+    .input-parchment:focus {
+      outline: none;
+      border-color: #822017;
+      box-shadow: 0 0 0 1.5px rgba(130, 32, 23, 0.25);
+    }
+
+    /* Botones +/- compactos en línea para evitar cortes */
+    .btn-mini-step {
+      background: linear-gradient(180deg, #E8D8BC 0%, #C4AD86 100%);
+      border: 1px solid #5C3D24;
+      color: #2B1A10;
+      font-family: 'Cinzel', serif;
+      font-weight: 900;
+      font-size: 9px;
+      width: 14px;
+      height: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0;
+    }
+    .btn-mini-step:active { transform: scale(0.92); background: #B3986C; }
+
+    /* Ocultar flechas de inputs numéricos */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] { -moz-appearance: textfield; }

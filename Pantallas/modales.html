@@ -1,0 +1,105 @@
+<div id="modal-menu-confirm" class="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4 hidden">
+      <div class="mosaic-parchment-bg p-4 rounded-xl max-w-xs w-full space-y-2.5 text-center">
+        <div class="text-2xl leading-none">⚠️</div>
+        <h3 class="cinzel text-xs font-extrabold text-[#822017]">¿VOLVER AL MENÚ PRINCIPAL?</h3>
+        <p class="text-[11px] text-[#3B2313] font-semibold leading-snug">
+          Tienes datos de partida en curso. Si vuelves al menú principal, <b>los datos actuales se perderán</b>.
+        </p>
+        <div class="flex gap-2 pt-1">
+          <button onclick="app.cancelReturnToMenu()" class="btn-secondary flex-1 py-1.5 rounded-lg text-[10px] font-extrabold">No, Continuar</button>
+          <button onclick="app.confirmReturnToMenu()" class="btn-roman flex-1 py-1.5 rounded-lg text-[10px] font-extrabold">Sí, Volver al Menú</button>
+        </div>
+      </div>
+    </div>
+<div id="modal-leader-choice" class="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4 hidden">
+      <div class="mosaic-parchment-bg p-3.5 rounded-xl max-w-xs w-full space-y-2">
+        <h3 class="cinzel text-xs font-extrabold text-[#822017] text-center" id="modal-title">Líder</h3>
+        <p class="text-[10.5px] italic text-[#4A3525] text-center font-semibold" id="modal-desc">Elige dónde sumar Producción inicial:</p>
+        <div id="modal-choices-container" class="space-y-1"></div>
+        <button onclick="app.submitLeaderChoice()" class="btn-roman w-full py-1.5 rounded-lg font-bold text-xs">CONFIRMAR ELECCIÓN</button>
+      </div>
+    </div>
+<div id="modal-ach-selector" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-2 hidden">
+      <div class="mosaic-parchment-bg p-2.5 rounded-xl max-w-md w-full flex flex-col justify-between space-y-1.5 overflow-hidden">
+        <div class="flex justify-between items-center border-b border-[#8C6D4F] pb-1">
+          <div>
+            <h3 class="cinzel text-[10.5px] font-extrabold text-[#822017] leading-none">⚙️ SELECCIONAR 9 LOGROS ACTIVOS</h3>
+            <span class="text-[8.5px] italic text-[#4A3525]">Toca las tarjetas para activar o desactivar</span>
+          </div>
+          <span id="ach-counter" class="cinzel text-[9.5px] font-extrabold px-2 py-0.5 rounded bg-[#F3E6CC] border border-[#8C6D4F] text-green-800">9/9 activos</span>
+        </div>
+        <div class="grid grid-cols-3 gap-1" id="ach-selector-container"></div>
+        <div id="ach-selector-warning" class="text-[9px] text-center font-bold text-[#822017] hidden">
+          ⚠️ Debes dejar marcados exactamente 9 logros para continuar.
+        </div>
+        <button onclick="app.closeAchSelectorModal()" class="btn-roman w-full py-1.5 rounded-lg font-bold text-[10.5px]">GUARDAR 9 LOGROS Y VOLVER</button>
+      </div>
+    </div>
+<div id="modal-achievements" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-2 hidden">
+      <div class="mosaic-parchment-bg p-2.5 rounded-xl max-w-md w-full flex flex-col justify-between space-y-1.5 overflow-hidden">
+        <div class="flex justify-between items-center border-b border-[#8C6D4F] pb-1">
+          <h3 class="cinzel text-[11px] font-extrabold text-[#822017]">🏅 EDADES DE ORO Y LOGROS (6 PV)</h3>
+          <button onclick="app.closeAchievementsModal()" class="btn-secondary text-[9px] font-bold px-2 py-0.5 rounded">✕</button>
+        </div>
+        <div class="grid grid-cols-2 gap-1">
+          <button onclick="app.switchAchTab('golden')" id="tab-ach-golden" class="cinzel text-[9.5px] py-1 px-2 font-bold bg-[#822017] text-[#F4EAD5] rounded border border-[#D4AF37]">⭐ Edades de Oro (9)</button>
+          <button onclick="app.switchAchTab('achievements')" id="tab-ach-achievements" class="cinzel text-[9.5px] py-1 px-2 font-bold bg-[#DFD0B4] text-[#2B1D12] rounded border border-[#8C6D4F]">🏆 Logros Activos (9)</button>
+        </div>
+        <div class="grid grid-cols-3 gap-1.5" id="achievements-container"></div>
+        <button onclick="app.closeAchievementsModal()" class="btn-roman w-full py-1.5 rounded-lg font-bold text-[10.5px]">CERRAR</button>
+      </div>
+    </div>
+<div id="modal-claim-player" class="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-3 hidden">
+      <div class="mosaic-parchment-bg p-3 rounded-xl max-w-xs w-full space-y-1.5 text-center">
+        <h3 class="cinzel text-[10.5px] font-extrabold text-[#822017]" id="claim-modal-title">Reclamar</h3>
+        <p class="text-[9.5px] text-[#4A3525] font-semibold">¿Qué civilización reclama esta recompensa (+6 PV)?</p>
+        <div id="claim-players-container" class="grid grid-cols-2 gap-1.5 pt-1"></div>
+        <button onclick="document.getElementById('modal-claim-player').classList.add('hidden')" class="btn-secondary w-full py-1 rounded text-[9.5px] font-bold mt-1">Cancelar</button>
+      </div>
+    </div>
+<div id="modal-benefit-alert" class="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4 hidden">
+      <div class="mosaic-parchment-bg p-3.5 rounded-xl max-w-xs w-full space-y-2 text-center">
+        <div class="text-xl leading-none">🎁</div>
+        <h3 class="cinzel text-xs font-extrabold text-[#822017]">¡RECOMPENSA APLICADA!</h3>
+        <p class="text-[11px] text-[#2B1D12] font-semibold leading-snug" id="benefit-alert-text">Mensaje</p>
+        <button onclick="document.getElementById('modal-benefit-alert').classList.add('hidden')" class="btn-roman w-full py-1.5 rounded-lg font-bold text-[10.5px]">ENTENDIDO</button>
+      </div>
+    </div>
+<div id="modal-printable-sheet" class="fixed inset-0 bg-black/85 z-50 flex flex-col items-center justify-center p-2 hidden">
+      <div class="bg-[#26160E] text-[#F4EAD5] w-full max-w-md rounded-t-xl p-2 flex justify-between items-center gap-1 border border-b-0 border-[#D4AF37] flex-shrink-0">
+        <div class="flex gap-1">
+          <button onclick="app.switchPreviewSheet('final')" id="tab-sheet-final" class="btn-roman text-[8.5px] px-2 py-1 rounded font-bold">📜 Recuento Final A4</button>
+          <button onclick="app.switchPreviewSheet('pillars')" id="tab-sheet-pillars" class="btn-secondary text-[8.5px] px-2 py-1 rounded font-bold">🏛️ Contador Pilares A4</button>
+        </div>
+        <div class="flex gap-1">
+          <button onclick="app.downloadCurrentPreviewImage()" class="btn-gold text-[8.5px] px-2 py-1 rounded font-extrabold">📥 Descargar</button>
+          <button onclick="app.closePrintableSheetModal()" class="btn-secondary text-[8.5px] px-2 py-1 rounded font-bold">✕</button>
+        </div>
+      </div>
+      <div class="bg-[#180E08] p-2 w-full max-w-md h-[82dvh] flex items-center justify-center rounded-b-xl border border-[#D4AF37] overflow-hidden">
+        <img id="generated-sheet-img" alt="Plantilla Oficial A4 Mosaic" class="max-h-full max-w-full object-contain rounded shadow-2xl border border-[#8C6D4F]">
+      </div>
+    </div>
+<div id="modal-help" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-3 hidden">
+      <div class="mosaic-parchment-bg p-3.5 rounded-xl max-w-sm w-full space-y-2">
+        <div class="flex justify-between items-center border-b border-[#8C6D4F] pb-1">
+          <h3 class="cinzel text-xs font-extrabold text-[#822017]">📖 RESUMEN DE PUNTUACIÓN Y REGLAS</h3>
+          <button onclick="app.closeHelpModal()" class="btn-secondary text-[9px] font-bold px-2 py-0.5 rounded">✕</button>
+        </div>
+        <div class="space-y-1.5 text-[10px] text-[#2B1A10] leading-snug">
+          <div class="parchment-card p-1.5 rounded">
+            <b class="cinzel text-[#822017]">⚡ Acción de Trabajar:</b> Suma tu <b>Población + Producción</b> del recurso elegido (Comida, Piedra o Ideas) directamente a tu Reserva.
+          </div>
+          <div class="parchment-card p-1.5 rounded">
+            <b class="cinzel text-[#822017]">🏛️ Pilares y Edades de Oro:</b> El primer jugador en llegar a <b>6 símbolos</b> en un Pilar reclama su Edad de Oro (6 PV + Beneficio inmediato).
+          </div>
+          <div class="parchment-card p-1.5 rounded">
+            <b class="cinzel text-[#822017]">🗺️ Puntuación de Imperio:</b> Influencia en región = Ciudad (2), Maravilla (2), Pueblo (1), Unidad Militar (1). El 1.º gana 3 PV + 1 PV por cada Ciudad y Maravilla en la región. El 2.º gana 2 PV (si no hay empate en 1.º o 2.º).
+          </div>
+          <div class="parchment-card p-1.5 rounded">
+            <b class="cinzel text-[#822017]">👑 Recuento Final:</b> Ciudades (2 PV), Pueblos (1 PV), Pueblos Industriales (5 PV si tienes 3 mercancías), Maravillas, Proyectos, Tecnologías, Edades de Oro/Logros (6 PV) menos Malestar neto.
+          </div>
+        </div>
+        <button onclick="app.closeHelpModal()" class="btn-roman w-full py-1.5 rounded-lg font-bold text-xs">CERRAR GUÍA</button>
+      </div>
+    </div>

@@ -1,0 +1,47 @@
+<div id="screen-player-detail" class="flex flex-col flex-grow justify-between space-y-1 hidden overflow-hidden min-h-0">
+        <div class="flex items-center justify-between border-b border-[#8C6D4F] pb-0.5 flex-shrink-0">
+          <button onclick="app.saveAndClosePlayerDetail()" class="btn-secondary text-[9px] px-2 py-0.5 rounded font-bold">❮ Volver</button>
+          <div class="text-center truncate px-1">
+            <h2 class="cinzel text-[11px] font-extrabold text-[#822017] leading-tight" id="detail-player-name">Jugador</h2>
+            <p class="text-[8.5px] italic text-[#4A3525] leading-none" id="detail-player-leader">Líder</p>
+          </div>
+          <button onclick="app.saveAndClosePlayerDetail()" class="btn-roman text-[9px] px-2 py-0.5 rounded font-bold">💾 Guardar</button>
+        </div>
+
+        <!-- Población y Resumen -->
+        <div class="parchment-card px-2 py-1 rounded-lg flex items-center justify-between bg-[#F6EBD4] flex-shrink-0">
+          <div>
+            <span class="cinzel text-[9.5px] font-extrabold text-[#3B2616] block leading-none">👥 POBLACIÓN ACTUAL</span>
+            <span class="text-[8px] italic text-[#5C4433]">Se suma a la Producción al Trabajar (⚡)</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <button onclick="app.adjustDetailValue('det-pop', -1)" class="btn-secondary w-6 h-5 rounded font-bold text-xs flex items-center justify-center">-</button>
+            <input type="number" id="det-pop" class="input-parchment w-9 h-5 text-center font-bold text-xs rounded" value="5">
+            <button onclick="app.adjustDetailValue('det-pop', 1)" class="btn-secondary w-6 h-5 rounded font-bold text-xs flex items-center justify-center">+</button>
+          </div>
+        </div>
+
+        <!-- Stock y Producción -->
+        <div class="parchment-card p-1.5 rounded-lg space-y-0.5 flex-shrink-0">
+          <div class="grid grid-cols-12 text-[8px] cinzel font-extrabold text-[#822017] border-b border-[#C8B390] pb-0.5 px-0.5">
+            <div class="col-span-4">RECURSO</div>
+            <div class="col-span-3 text-center">RESERVA (STOCK)</div>
+            <div class="col-span-3 text-center">PRODUCCIÓN</div>
+            <div class="col-span-2 text-right">ACCIÓN</div>
+          </div>
+          <div class="space-y-0.5 text-xs" id="detail-resources-list"></div>
+        </div>
+
+        <!-- 9 Pilares de la Civilización (Grid 3x3 sin scroll) -->
+        <div class="parchment-card p-1.5 rounded-lg flex-grow overflow-hidden flex flex-col justify-between min-h-0">
+          <div class="flex justify-between items-center border-b border-[#C8B390] pb-0.5 flex-shrink-0">
+            <span class="cinzel text-[9px] font-extrabold text-[#3B2616]">🏛️ PILARES DE LA CIVILIZACIÓN</span>
+            <span class="text-[8px] italic text-[#822017] font-bold">⭐ 6 símbolos = Edad de Oro</span>
+          </div>
+          <div class="grid grid-cols-3 gap-1 flex-grow items-center pt-0.5" id="detail-pillars-list"></div>
+        </div>
+
+        <button onclick="app.saveAndClosePlayerDetail()" class="btn-roman w-full py-1.5 rounded-lg font-bold text-[10.5px] tracking-wider flex-shrink-0 shadow">
+          💾 GUARDAR CAMBIOS Y VOLVER
+        </button>
+      </div>

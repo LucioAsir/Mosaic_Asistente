@@ -1,0 +1,89 @@
+<div id="screen-setup" class="flex flex-col flex-grow justify-between space-y-1 overflow-hidden min-h-0 hidden">
+        <div class="text-center border-b border-[#8C6D4F] pb-0.5 flex-shrink-0">
+          <h2 class="cinzel text-[11px] font-extrabold text-[#822017] tracking-wider">CONFIGURAR NUEVA PARTIDA</h2>
+          <p class="text-[9px] italic text-[#4A3525] leading-none">Elige el número de jugadores, sus Líderes y los 9 Logros activos</p>
+        </div>
+
+        <!-- Selector 1-6 Jugadores -->
+        <div class="parchment-card p-1 rounded-lg flex-shrink-0">
+          <label class="cinzel text-[8.5px] font-bold text-[#3B2616] block text-center mb-0.5">NÚMERO DE JUGADORES</label>
+          <div class="grid grid-cols-6 gap-1" id="player-count-buttons"><button type="button" class="cinzel py-0.5 rounded font-extrabold text-xs border transition bg-[#FDFAF3] text-[#2B1D12] border-[#8C6D4F]">1</button><button type="button" class="cinzel py-0.5 rounded font-extrabold text-xs border transition bg-[#FDFAF3] text-[#2B1D12] border-[#8C6D4F]">2</button><button type="button" class="cinzel py-0.5 rounded font-extrabold text-xs border transition bg-[#FDFAF3] text-[#2B1D12] border-[#8C6D4F]">3</button><button type="button" class="cinzel py-0.5 rounded font-extrabold text-xs border transition bg-[#822017] text-[#F4EAD5] border-[#D4AF37] shadow">4</button><button type="button" class="cinzel py-0.5 rounded font-extrabold text-xs border transition bg-[#FDFAF3] text-[#2B1D12] border-[#8C6D4F]">5</button><button type="button" class="cinzel py-0.5 rounded font-extrabold text-xs border transition bg-[#FDFAF3] text-[#2B1D12] border-[#8C6D4F]">6</button></div>
+        </div>
+
+        <!-- Filas de Jugadores (Auto-ajustables sin scroll) -->
+        <div class="space-y-1 flex-grow flex flex-col justify-around overflow-hidden min-h-0" id="player-inputs-container"><div class="parchment-card px-2 py-1 rounded-lg flex flex-col justify-center flex-grow">
+            <div class="grid grid-cols-12 gap-1 items-center">
+              <div class="col-span-5">
+                <label class="cinzel text-[7.5px] font-extrabold text-[#822017] block leading-none mb-0.5">JUGADOR 1</label>
+                <input type="text" id="p-name-0" value="Alexandro" oninput="app.setupModified = true" class="input-parchment w-full text-[11px] font-bold px-1.5 py-0.5 rounded">
+              </div>
+              <div class="col-span-6">
+                <label class="cinzel text-[7.5px] font-extrabold text-[#822017] block leading-none mb-0.5">LÍDER HISTÓRICO</label>
+                <select id="p-leader-0" onchange="app.setupModified = true; app.updateLeaderDropdowns()" class="input-parchment w-full text-[11px] font-bold px-1 py-0.5 rounded">
+                  <option value="">-- Seleccionar --</option>
+                <option value="Magistrado">Magistrado</option><option value="Ingeniero">Ingeniero</option><option value="General">General</option><option value="Escriba">Escriba</option><option value="Artista">Artista</option><option value="Sacerdotisa">Sacerdotisa</option><option value="Filósofo">Filósofo</option><option value="Granjero">Granjero</option><option value="Comerciante">Comerciante</option></select>
+              </div>
+              <div class="col-span-1 flex justify-end items-end h-full pb-0.5">
+                <button type="button" onclick="app.randomLeader(0)" title="Líder Aleatorio" class="btn-secondary w-full h-6 rounded text-xs flex items-center justify-center">🎲</button>
+              </div>
+            </div>
+          </div><div class="parchment-card px-2 py-1 rounded-lg flex flex-col justify-center flex-grow">
+            <div class="grid grid-cols-12 gap-1 items-center">
+              <div class="col-span-5">
+                <label class="cinzel text-[7.5px] font-extrabold text-[#822017] block leading-none mb-0.5">JUGADOR 2</label>
+                <input type="text" id="p-name-1" value="Cleopatra" oninput="app.setupModified = true" class="input-parchment w-full text-[11px] font-bold px-1.5 py-0.5 rounded">
+              </div>
+              <div class="col-span-6">
+                <label class="cinzel text-[7.5px] font-extrabold text-[#822017] block leading-none mb-0.5">LÍDER HISTÓRICO</label>
+                <select id="p-leader-1" onchange="app.setupModified = true; app.updateLeaderDropdowns()" class="input-parchment w-full text-[11px] font-bold px-1 py-0.5 rounded">
+                  <option value="">-- Seleccionar --</option>
+                <option value="Magistrado">Magistrado</option><option value="Ingeniero">Ingeniero</option><option value="General">General</option><option value="Escriba">Escriba</option><option value="Artista">Artista</option><option value="Sacerdotisa">Sacerdotisa</option><option value="Filósofo">Filósofo</option><option value="Granjero">Granjero</option><option value="Comerciante">Comerciante</option></select>
+              </div>
+              <div class="col-span-1 flex justify-end items-end h-full pb-0.5">
+                <button type="button" onclick="app.randomLeader(1)" title="Líder Aleatorio" class="btn-secondary w-full h-6 rounded text-xs flex items-center justify-center">🎲</button>
+              </div>
+            </div>
+          </div><div class="parchment-card px-2 py-1 rounded-lg flex flex-col justify-center flex-grow">
+            <div class="grid grid-cols-12 gap-1 items-center">
+              <div class="col-span-5">
+                <label class="cinzel text-[7.5px] font-extrabold text-[#822017] block leading-none mb-0.5">JUGADOR 3</label>
+                <input type="text" id="p-name-2" value="César" oninput="app.setupModified = true" class="input-parchment w-full text-[11px] font-bold px-1.5 py-0.5 rounded">
+              </div>
+              <div class="col-span-6">
+                <label class="cinzel text-[7.5px] font-extrabold text-[#822017] block leading-none mb-0.5">LÍDER HISTÓRICO</label>
+                <select id="p-leader-2" onchange="app.setupModified = true; app.updateLeaderDropdowns()" class="input-parchment w-full text-[11px] font-bold px-1 py-0.5 rounded">
+                  <option value="">-- Seleccionar --</option>
+                <option value="Magistrado">Magistrado</option><option value="Ingeniero">Ingeniero</option><option value="General">General</option><option value="Escriba">Escriba</option><option value="Artista">Artista</option><option value="Sacerdotisa">Sacerdotisa</option><option value="Filósofo">Filósofo</option><option value="Granjero">Granjero</option><option value="Comerciante">Comerciante</option></select>
+              </div>
+              <div class="col-span-1 flex justify-end items-end h-full pb-0.5">
+                <button type="button" onclick="app.randomLeader(2)" title="Líder Aleatorio" class="btn-secondary w-full h-6 rounded text-xs flex items-center justify-center">🎲</button>
+              </div>
+            </div>
+          </div><div class="parchment-card px-2 py-1 rounded-lg flex flex-col justify-center flex-grow">
+            <div class="grid grid-cols-12 gap-1 items-center">
+              <div class="col-span-5">
+                <label class="cinzel text-[7.5px] font-extrabold text-[#822017] block leading-none mb-0.5">JUGADOR 4</label>
+                <input type="text" id="p-name-3" value="Pericles" oninput="app.setupModified = true" class="input-parchment w-full text-[11px] font-bold px-1.5 py-0.5 rounded">
+              </div>
+              <div class="col-span-6">
+                <label class="cinzel text-[7.5px] font-extrabold text-[#822017] block leading-none mb-0.5">LÍDER HISTÓRICO</label>
+                <select id="p-leader-3" onchange="app.setupModified = true; app.updateLeaderDropdowns()" class="input-parchment w-full text-[11px] font-bold px-1 py-0.5 rounded">
+                  <option value="">-- Seleccionar --</option>
+                <option value="Magistrado">Magistrado</option><option value="Ingeniero">Ingeniero</option><option value="General">General</option><option value="Escriba">Escriba</option><option value="Artista">Artista</option><option value="Sacerdotisa">Sacerdotisa</option><option value="Filósofo">Filósofo</option><option value="Granjero">Granjero</option><option value="Comerciante">Comerciante</option></select>
+              </div>
+              <div class="col-span-1 flex justify-end items-end h-full pb-0.5">
+                <button type="button" onclick="app.randomLeader(3)" title="Líder Aleatorio" class="btn-secondary w-full h-6 rounded text-xs flex items-center justify-center">🎲</button>
+              </div>
+            </div>
+          </div></div>
+
+        <!-- Pie de Setup -->
+        <div class="flex gap-1.5 flex-shrink-0 pt-0.5">
+          <button onclick="app.openAchSelectorModal()" class="btn-secondary py-1.5 px-2.5 rounded-lg font-extrabold text-[9.5px] flex items-center justify-center gap-1 shadow flex-shrink-0">
+            <span id="setup-ach-btn-label">⚙️ Logros (9/9)</span>
+          </button>
+          <button onclick="app.startGame()" class="btn-roman flex-grow py-1.5 rounded-lg font-extrabold text-[11px] tracking-widest shadow-lg">
+            ⚔️ INICIAR CIVILIZACIÓN
+          </button>
+        </div>
+      </div>

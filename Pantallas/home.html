@@ -1,0 +1,26 @@
+<div id="screen-home" class="flex flex-col flex-grow justify-between space-y-1 overflow-hidden min-h-0 hidden">
+        <div class="flex items-center justify-between border-b border-[#8C6D4F] pb-0.5 flex-shrink-0">
+          <div>
+            <h2 class="cinzel text-[11px] font-extrabold text-[#822017] leading-tight">ESTADO DE LAS CIVILIZACIONES</h2>
+            <p class="text-[8.5px] italic text-[#4A3525] leading-none">Toca una civilización para gestionar recursos y pilares</p>
+          </div>
+          <span class="cinzel text-[8px] font-bold bg-[#F3E6CC] border border-[#8C6D4F] px-1.5 py-0.5 rounded text-[#5C3D24]" id="home-active-players-badge">4 Jug.</span>
+        </div>
+
+        <!-- Lista de tarjetas de jugador -->
+        <div class="space-y-1 flex-grow flex flex-col justify-around overflow-hidden min-h-0" id="home-players-list"></div>
+
+        <!-- Acciones de Era y Logros -->
+        <div class="grid grid-cols-2 gap-1.5 flex-shrink-0">
+          <button onclick="app.openEmpireModal()" class="btn-roman py-1.5 px-2 rounded-lg font-bold text-[9.5px] tracking-wider flex items-center justify-center gap-1 shadow">
+            <span id="home-empire-btn-text">🗺️ Puntuación Imperio (1/3)</span>
+          </button>
+          <button onclick="app.openAchievementsModal()" class="btn-secondary py-1.5 px-2 rounded-lg font-bold text-[9.5px] tracking-wider flex items-center justify-center gap-1 shadow border border-[#822017]">
+            <span>🏅 Edades Oro / Logros</span>
+          </button>
+        </div>
+
+        <button onclick="app.openFinalScoring()" class="btn-gold w-full py-1.5 rounded-lg font-extrabold text-[10.5px] tracking-widest shadow-md flex-shrink-0">
+          👑 FINALIZAR PARTIDA Y RECUENTO FINAL
+        </button>
+      </div>

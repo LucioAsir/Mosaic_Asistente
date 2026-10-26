@@ -1,0 +1,21 @@
+<div id="screen-empire" class="flex flex-col flex-grow justify-between space-y-1 hidden overflow-hidden min-h-0">
+        <div class="flex items-center justify-between border-b border-[#8C6D4F] pb-0.5 flex-shrink-0">
+          <button onclick="app.closeEmpireModal()" class="btn-secondary text-[9px] px-2 py-0.5 rounded font-bold">❮ Volver</button>
+          <div class="flex gap-1">
+            <button id="tab-emp-0" onclick="app.switchEmpireRound(0)" class="cinzel text-[8.5px] px-2 py-0.5 rounded font-bold">1.ª Era</button>
+            <button id="tab-emp-1" onclick="app.switchEmpireRound(1)" class="cinzel text-[8.5px] px-2 py-0.5 rounded font-bold">2.ª Era</button>
+            <button id="tab-emp-2" onclick="app.switchEmpireRound(2)" class="cinzel text-[8.5px] px-2 py-0.5 rounded font-bold">3.ª Era</button>
+          </div>
+          <button onclick="app.openEmpireResultsModal()" class="btn-roman text-[9px] px-2 py-0.5 rounded font-bold">📊 Resumen</button>
+        </div>
+
+        <!-- Pestañas de las 7 Regiones -->
+        <div class="grid grid-cols-7 gap-0.5 flex-shrink-0" id="empire-regions-tabs"></div>
+
+        <!-- Contenido de la Región Activa -->
+        <div class="parchment-card p-1.5 rounded-lg flex-grow flex flex-col justify-between overflow-hidden min-h-0" id="empire-region-content"></div>
+
+        <button onclick="app.openEmpireResultsModal()" class="btn-roman w-full py-1.5 rounded-lg font-bold text-[10.5px] tracking-wider flex-shrink-0 shadow">
+          📊 VER RESULTADOS DE REGIONES Y GOBIERNO
+        </button>
+      </div>

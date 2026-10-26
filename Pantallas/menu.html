@@ -1,0 +1,44 @@
+<div id="screen-menu" class="flex flex-col flex-grow justify-between items-center text-center py-2 overflow-hidden min-h-0">
+        <div class="space-y-1 mt-1">
+          <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-b from-[#98281E] to-[#52110B] border-2 border-[#D4AF37] shadow-lg">
+            <span class="text-2xl">🏛️</span>
+          </div>
+          <h2 class="cinzel-dec text-xl sm:text-2xl font-black text-[#822017] tracking-wider leading-tight" style="text-shadow: 1px 1px 0 rgba(212,175,55,0.6);">MOSAIC</h2>
+          <p class="cinzel text-[9px] font-bold tracking-widest text-[#3B2313] uppercase">Asistente Digital y Gestor de Partidas</p>
+        </div>
+
+        <!-- Tarjeta ornamental de bienvenida -->
+        <div class="parchment-card p-2.5 rounded-xl w-full max-w-xs space-y-1.5 border-2 border-[#8A6A4B]">
+          <p class="text-[11px] italic text-[#3B2313] leading-snug font-semibold">
+            "Guía a tu civilización desde sus humildes orígenes hasta dominar el Mediterráneo antiguo."
+          </p>
+          <div class="grid grid-cols-3 gap-1 pt-1 border-t border-[#C8B390] text-[8.5px] cinzel font-bold text-[#61150E]">
+            <div class="bg-[#F3E6CC]/80 py-1 rounded border border-[#C8B390]">👥 1-6 Jug.</div>
+            <div class="bg-[#F3E6CC]/80 py-1 rounded border border-[#C8B390]">🏛️ 9 Pilares</div>
+            <div class="bg-[#F3E6CC]/80 py-1 rounded border border-[#C8B390]">🗺️ 7 Regiones</div>
+          </div>
+        </div>
+
+        <!-- Botonera Principal -->
+        <div class="w-full max-w-xs space-y-2 flex flex-col justify-center">
+          <button onclick="app.goToSetup()" class="btn-roman w-full py-2.5 px-3 rounded-xl font-extrabold text-xs tracking-widest shadow-lg flex items-center justify-center gap-2">
+            <span>🏛️ NUEVA PARTIDA (CONFIGURAR)</span>
+          </button>
+
+          <button onclick="app.openPrintableSheetModal('final')" class="btn-secondary w-full py-2 px-3 rounded-xl font-extrabold text-[10.5px] tracking-wider shadow flex items-center justify-center gap-2">
+            <span>📜 PLANTILLAS (PUNTUACIÓN Y PILARES A4)</span>
+          </button>
+
+          <button onclick="app.openHelpModal()" class="btn-secondary w-full py-1.5 px-3 rounded-xl font-bold text-[10px] tracking-wider shadow flex items-center justify-center gap-2">
+            <span>📖 GUÍA RÁPIDA Y REFERENCIA DE REGLAS</span>
+          </button>
+
+          <button onclick="app.downloadModularZip()" class="btn-gold w-full py-2 px-3 rounded-xl font-extrabold text-[10.5px] tracking-wider shadow-md flex items-center justify-center gap-2">
+            <span>📥 DESCARGAR PROYECTO (.ZIP)</span>
+          </button>
+        </div>
+
+        <div class="text-[8.5px] cinzel font-bold text-[#4A2F1B] opacity-85">
+          Edición Coleccionista • Cero Papel / Imprimibles A4 Incluidos
+        </div>
+      </div>

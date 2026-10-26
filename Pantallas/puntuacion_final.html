@@ -1,0 +1,25 @@
+<div id="screen-final" class="flex flex-col flex-grow justify-between space-y-1 overflow-hidden min-h-0 hidden">
+        <div class="flex items-center justify-between border-b border-[#8C6D4F] pb-0.5 flex-shrink-0">
+          <button onclick="app.closeFinalScoring()" class="btn-secondary text-[9px] px-2 py-0.5 rounded font-bold">❮ Partida</button>
+          <h2 class="cinzel text-[10.5px] font-extrabold text-[#822017]">RECUENTO FINAL DE PARTIDA</h2>
+          <button onclick="app.exportResultImage()" class="btn-gold text-[8.5px] px-2 py-0.5 rounded font-extrabold">📥 PNG A4</button>
+        </div>
+
+        <div id="capture-area" class="parchment-card p-1 rounded-lg border border-[#5C3D24] bg-[#EFE2C6]/95 flex-grow flex flex-col justify-between overflow-hidden min-h-0">
+          <div id="winner-banner" class="bg-[#F8ECC9] border border-[#B58922] rounded py-0.5 px-2 text-center text-[9px] font-bold text-[#5C3B00] flex-shrink-0">
+            🏆 En cabeza: <b>Alexandro</b> con <b>0 PV</b>
+          </div>
+
+          <div class="flex-grow overflow-hidden flex flex-col justify-center min-h-0 my-0.5">
+            <table class="w-full h-full border-collapse border border-[#4A3728] table-fixed" id="final-scoring-table"></table>
+          </div>
+
+          <div class="text-[7.5px] italic text-center text-[#3B2616] flex-shrink-0 leading-none">
+            Desempates: 1.º Más Maravillas, 2.º Más Dinero. Si persiste, victoria compartida.
+          </div>
+        </div>
+
+        <button onclick="app.exportResultImage()" class="btn-roman w-full py-1.5 rounded-lg font-bold text-[10px] tracking-widest flex-shrink-0 shadow-lg">
+          📸 DESCARGAR LÁMINA CON RESULTADOS (PNG A4)
+        </button>
+      </div>
