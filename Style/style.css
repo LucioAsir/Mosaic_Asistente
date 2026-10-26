@@ -138,3 +138,25 @@
       margin: 0;
     }
     input[type=number] { -moz-appearance: textfield; }
+
+    /* Ajuste compacto para que la tabla de puntuación final quepa completa de un vistazo sin scroll */
+    #screen-final table {
+        width: 100%;
+        table-layout: fixed;
+        font-size: 7px;
+      }
+      
+    #screen-final th, 
+    #screen-final td {
+        padding: 1px 0.5px !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+    }
+      
+    #screen-final th:first-child, 
+    #screen-final td:first-child {
+        font-size: 6.5px;
+        white-space: normal;
+     }
