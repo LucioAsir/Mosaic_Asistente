@@ -143,20 +143,26 @@
     #screen-final table {
         width: 100%;
         table-layout: fixed;
-        font-size: 7px;
+        font-size: 6.5px;
       }
       
-    #screen-final th, 
-    #screen-final td {
-        padding: 1px 0.5px !important;
+    /* Forzamos a que la columna de categorías sea estrecha */
+    #screen-final th:first-child, 
+    #screen-final td:first-child {
+        width: 22%; /* Ancho fijo reducido para la columna de la izquierda */
+        font-size: 5.5px;
+        white-space: normal; /* Permite que el texto largo baje de línea si hace falta */
+        padding: 1px !important;
+        text-align: left;
+    }
+
+/* El resto de columnas (los jugadores) comparten el espacio restante de forma equitativa */
+    #screen-final th:not(:first-child), 
+    #screen-final td:not(:first-child) {
+        width: auto;
+        padding: 1px 0px !important;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         text-align: center;
     }
-      
-    #screen-final th:first-child, 
-    #screen-final td:first-child {
-        font-size: 6.5px;
-        white-space: normal;
-     }
