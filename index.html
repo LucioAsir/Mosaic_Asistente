@@ -880,12 +880,20 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
             <span>🏛️ NUEVA PARTIDA (CONFIGURAR)</span>
           </button>
 
-          <button onclick="app.openPrintableSheetModal('final')" class="btn-secondary w-full py-2 px-3 rounded-xl font-extrabold text-[10.5px] tracking-wider shadow flex items-center justify-center gap-2">
-            <span>📜 PLANTILLAS (PUNTUACIÓN Y PILARES A4)</span>
+          <button onclick="app.openSavedGamesModal()" class="btn-gold w-full py-2 px-3 rounded-xl font-extrabold text-[10.5px] tracking-wider shadow-md flex items-center justify-center gap-2">
+            <span>📂 CONTINUAR PARTIDA GUARDADA</span>
+          </button>
+
+          <button onclick="app.openStatsModal()" class="btn-secondary w-full py-2 px-3 rounded-xl font-extrabold text-[10.5px] tracking-wider shadow flex items-center justify-center gap-2">
+            <span>🏆 RANKING Y HISTÓRICO DE JUGADORES</span>
           </button>
 
           <button onclick="app.openHelpModal()" class="btn-secondary w-full py-1.5 px-3 rounded-xl font-bold text-[10px] tracking-wider shadow flex items-center justify-center gap-2">
             <span>📖 GUÍA RÁPIDA Y REFERENCIA DE REGLAS</span>
+          </button>
+
+          <button onclick="app.openPrintableSheetModal('final')" class="btn-secondary w-full py-2 px-3 rounded-xl font-extrabold text-[10.5px] tracking-wider shadow flex items-center justify-center gap-2">
+            <span>📜 PLANTILLAS (PUNTUACIÓN Y PILARES A4)</span>
           </button>
 
           <button onclick="app.downloadModularZip()" class="btn-gold w-full py-2 px-3 rounded-xl font-extrabold text-[10.5px] tracking-wider shadow-md flex items-center justify-center gap-2">
@@ -1137,6 +1145,10 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         <button onclick="app.exportResultImage()" class="btn-roman w-full py-1.5 rounded-lg font-bold text-[10px] tracking-widest flex-shrink-0 shadow-lg">
           📸 DESCARGAR LÁMINA CON RESULTADOS (PNG A4)
         </button>
+
+        <button onclick="app.finishAndArchiveGame()" class="btn-gold w-full py-1.5 rounded-lg font-extrabold text-[10px] tracking-widest flex-shrink-0 shadow-lg">
+          🏆 ARCHIVAR PARTIDA EN EL RANKING Y SALIR
+        </button>
       </div>
 
     </main>
@@ -1151,7 +1163,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         <div class="text-2xl leading-none">⚠️</div>
         <h3 class="cinzel text-xs font-extrabold text-[#822017]">¿VOLVER AL MENÚ PRINCIPAL?</h3>
         <p class="text-[11px] text-[#3B2313] font-semibold leading-snug">
-          Tienes datos de partida en curso. Si vuelves al menú principal, <b>los datos actuales se perderán</b>.
+          Tienes datos de partida en curso. Se hará un autoguardado.
         </p>
         <div class="flex gap-2 pt-1">
           <button onclick="app.cancelReturnToMenu()" class="btn-secondary flex-1 py-1.5 rounded-lg text-[10px] font-extrabold">No, Continuar</button>
@@ -1218,11 +1230,11 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       </div>
     </div>
 
-    <!-- MODAL 6: NOTIFICACIÓN DE BENEFICIO OBTENIDO -->
+    <!-- MODAL 6: NOTIFICACIÓN DE BENEFICIO OBTENIDO / AVISOS -->
     <div id="modal-benefit-alert" class="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4 hidden">
       <div class="mosaic-parchment-bg p-3.5 rounded-xl max-w-xs w-full space-y-2 text-center">
-        <div class="text-xl leading-none">🎁</div>
-        <h3 class="cinzel text-xs font-extrabold text-[#822017]">¡RECOMPENSA APLICADA!</h3>
+        <div class="text-xl leading-none" id="benefit-alert-icon">🎁</div>
+        <h3 class="cinzel text-xs font-extrabold text-[#822017]" id="benefit-alert-title">¡RECOMPENSA APLICADA!</h3>
         <p class="text-[11px] text-[#2B1D12] font-semibold leading-snug" id="benefit-alert-text">Mensaje</p>
         <button onclick="document.getElementById('modal-benefit-alert').classList.add('hidden')" class="btn-roman w-full py-1.5 rounded-lg font-bold text-[10.5px]">ENTENDIDO</button>
       </div>
@@ -1271,6 +1283,53 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       </div>
     </div>
 
+    <!-- MODAL 9: CONTINUAR PARTIDA GUARDADA -->
+    <div id="modal-saved-games" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-3 hidden">
+      <div class="mosaic-parchment-bg p-3 rounded-xl max-w-md w-full flex flex-col justify-between space-y-2 max-h-[85dvh] overflow-hidden">
+        <div class="flex justify-between items-center border-b border-[#8C6D4F] pb-1">
+          <div class="flex-grow text-center">
+            <h3 class="cinzel text-xs font-extrabold text-[#822017]">📂 PARTIDAS EN CURSO</h3>
+          </div>
+          <button onclick="document.getElementById('modal-saved-games').classList.add('hidden')" class="btn-secondary text-[9px] font-bold px-2 py-0.5 rounded flex-shrink-0">✕</button>
+        </div>
+        <div id="saved-games-container" class="space-y-1.5 overflow-y-auto pr-1" style="max-height: 60dvh;"></div>
+        <button onclick="document.getElementById('modal-saved-games').classList.add('hidden')" class="btn-roman w-full py-1.5 rounded-lg font-bold text-xs">CERRAR</button>
+      </div>
+    </div>
+
+    <!-- MODAL 10: RANKING E HISTÓRICO -->
+    <div id="modal-stats" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-2 hidden">
+      <div class="mosaic-parchment-bg p-2.5 rounded-xl max-w-md w-full flex flex-col justify-between space-y-1.5 max-h-[88dvh] overflow-hidden">
+        <div class="flex justify-between items-center border-b border-[#8C6D4F] pb-1">
+          <div class="flex-grow text-center">
+            <h3 class="cinzel text-xs font-extrabold text-[#822017]">🏆 RANKING E HISTÓRICO</h3>
+          </div>
+          <button onclick="document.getElementById('modal-stats').classList.add('hidden')" class="btn-secondary text-[9px] font-bold px-2 py-0.5 rounded flex-shrink-0">✕</button>
+        </div>
+        <div class="grid grid-cols-2 gap-1">
+          <button onclick="app.switchStatsTab('ranking')" id="tab-stats-ranking" class="cinzel text-[9.5px] py-1 px-2 font-bold bg-[#822017] text-[#F4EAD5] rounded border border-[#D4AF37]">📊 Ranking Jugadores</button>
+          <button onclick="app.switchStatsTab('history')" id="tab-stats-history" class="cinzel text-[9.5px] py-1 px-2 font-bold bg-[#DFD0B4] text-[#2B1D12] rounded border border-[#8C6D4F]">📜 Partidas Finalizadas</button>
+        </div>
+        <div id="stats-content-container" class="overflow-y-auto space-y-1 pr-0.5" style="max-height: 62dvh;"></div>
+        <button onclick="document.getElementById('modal-stats').classList.add('hidden')" class="btn-roman w-full py-1.5 rounded-lg font-bold text-xs">CERRAR</button>
+      </div>
+    </div>
+
+    <!-- MODAL 11: CONFIRMACIÓN BORRAR PARTIDA GUARDADA -->
+    <div id="modal-delete-confirm" class="fixed inset-0 bg-black/80 z-[60] flex items-center justify-center p-4 hidden">
+      <div class="mosaic-parchment-bg p-4 rounded-xl max-w-xs w-full space-y-2.5 text-center">
+        <div class="text-2xl leading-none">⚠️</div>
+        <h3 class="cinzel text-xs font-extrabold text-[#822017]">¿BORRAR PARTIDA GUARDADA?</h3>
+        <p class="text-[11px] text-[#3B2313] font-semibold leading-snug">
+          Esta acción eliminará permanentemente la partida <b id="delete-game-id-label"></b>. No se podrá recuperar.
+        </p>
+        <div class="flex gap-2 pt-1">
+          <button onclick="app.cancelDeleteSavedGame()" class="btn-secondary flex-1 py-1.5 rounded-lg text-[10px] font-extrabold">Cancelar</button>
+          <button onclick="app.confirmDeleteSavedGame()" class="btn-roman flex-1 py-1.5 rounded-lg text-[10px] font-extrabold">Sí, Borrar</button>
+        </div>
+      </div>
+    </div>
+
     <!-- PIE DE PÁGINA -->
     <footer class="bg-[#26160E]/95 text-[#D4AF37] text-[8px] py-1 text-center cinzel border-t border-[#5C3D24] flex-shrink-0 z-10 font-bold tracking-wider flex items-center justify-center gap-2">
   <span>MOSAIC ASISTENTE MODULAR • EDICIÓN IMPERIAL</span>
@@ -1283,6 +1342,13 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
   <script>
     class MosaicApp {
       constructor() {
+        this.currentGameId = null;
+        this.elapsedMs = 0;
+        this.sessionStartTime = null;
+
+        this.rankingSortField = 'wins'; // Campo por defecto: 'games', 'wins', 'avgPV', 'totalPV', 'hours'
+        this.rankingSortDesc = true;       // true = Mayor a menor (▼), false = Menor a mayor (▲)
+
         this.currentScreen = 'screen-menu';
         this.gameInProgress = false;
         this.setupModified = false;
@@ -1379,6 +1445,16 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         this.renderSetupInputs();
         // Garantizar que la primera pantalla al arrancar sea SIEMPRE el Menú Principal
         this.showScreen('screen-menu');
+        // Pausa el contador de tiempo si la app pasa a segundo plano y lo reanuda al volver
+        document.addEventListener('visibilitychange', () => {
+          if (!this.gameInProgress) return;
+          if (document.hidden) {
+            this.autoSaveGame();
+            this.sessionStartTime = null;
+          } else {
+            this.sessionStartTime = Date.now();
+          }
+        });
       }
 
       /* ========================================================
@@ -1571,6 +1647,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       }
 
       confirmReturnToMenu() {
+        this.autoSaveGame(); // <-- Guarda el progreso y el tiempo exacto antes de salir al menú
         document.getElementById('modal-menu-confirm').classList.add('hidden');
         this.resetStateAndGoMenu();
       }
@@ -1578,6 +1655,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       resetStateAndGoMenu() {
         this.gameInProgress = false;
         this.setupModified = false;
+        this.currentGameId = null; // <-- Limpiamos el ID de partida activa al volver al menú
         this.players = [];
         this.currentEmpireRound = 0;
         this.empireRegionData = [{}, {}, {}];
@@ -1912,6 +1990,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       }
 
       finishStartGame() {
+        this.initNewGameSave(); // <-- Crea "Partida_1_fecha" y arranca el reloj
         this.showScreen('screen-home');
         this.updateHomeView();
       }
@@ -2094,6 +2173,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         this.activeDetailPlayerIdx = null;
         this.showScreen('screen-home');
         this.updateHomeView();
+        this.autoSaveGame();
       }
 
       /* ========================================================
@@ -2107,6 +2187,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       closeEmpireModal() {
         this.showScreen('screen-home');
         this.updateHomeView();
+        this.autoSaveGame();
       }
 
       switchEmpireRound(roundIdx) {
@@ -2175,7 +2256,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
               </div>
               <div class="grid grid-cols-4 gap-1 text-center text-[8px]">
                 <div>
-                  <span class="block text-[10px] text-[#5C4433] leading-none">Ciudades (2)</span>
+                  <span class="block text-[10px] text-[#5C4433] leading-none">Ciudades(2)</span>
                   <div class="flex items-center justify-center gap-0.5 mt-0.5">
                     <button type="button" onclick="app.updateRegVal('${currentReg.key}', ${pIdx}, 'cities', -1)" class="btn-mini-step">-</button>
                     <span class="font-bold text-[9.5px] w-4 text-center">${data.cities}</span>
@@ -2183,7 +2264,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
                   </div>
                 </div>
                 <div>
-                  <span class="block text-[10px] text-[#5C4433] leading-none">Pueblos (1)</span>
+                  <span class="block text-[10px] text-[#5C4433] leading-none">Pueblos(1)</span>
                   <div class="flex items-center justify-center gap-0.5 mt-0.5">
                     <button type="button" onclick="app.updateRegVal('${currentReg.key}', ${pIdx}, 'villages', -1)" class="btn-mini-step">-</button>
                     <span class="font-bold text-[9.5px] w-4 text-center">${data.villages}</span>
@@ -2191,7 +2272,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
                   </div>
                 </div>
                 <div>
-                  <span class="block text-[10px] text-[#5C4433] leading-none">Maravillas (2)</span>
+                  <span class="block text-[10px] text-[#5C4433] leading-none">Maravillas(2)</span>
                   <div class="flex items-center justify-center gap-0.5 mt-0.5">
                     <button type="button" onclick="app.updateRegVal('${currentReg.key}', ${pIdx}, 'wonders', -1)" class="btn-mini-step">-</button>
                     <span class="font-bold text-[9.5px] w-4 text-center">${data.wonders}</span>
@@ -2199,7 +2280,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
                   </div>
                 </div>
                 <div>
-                  <span class="block text-[10px] text-[#5C4433] leading-none">Unidades Militares (1)</span>
+                  <span class="block text-[10px] text-[#5C4433] leading-none">Ud.Militares(1)</span>
                   <div class="flex items-center justify-center gap-0.5 mt-0.5">
                     <button type="button" onclick="app.updateRegVal('${currentReg.key}', ${pIdx}, 'military', -1)" class="btn-mini-step">-</button>
                     <span class="font-bold text-[9.5px] w-4 text-center">${data.military}</span>
@@ -2377,6 +2458,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
 
         this.showScreen('screen-home');
         this.updateHomeView();
+        this.autoSaveGame();
       }
 
       /* ========================================================
@@ -2390,6 +2472,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       closeAchievementsModal() {
         document.getElementById('modal-achievements').classList.add('hidden');
         this.updateHomeView();
+        this.autoSaveGame();
       }
 
       switchAchTab(tab) {
@@ -2510,8 +2593,28 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         this.renderAchievementsList();
       }
 
-      showAlert(msg) {
-        document.getElementById('benefit-alert-text').innerText = msg;
+      showAlert(msg, type = 'reward') {
+        const isWarn = type === 'warning' || msg.includes('⚠️');
+        const isArchive = type === 'archive' || msg.includes('archivada') || msg.includes('📂');
+
+        // Limpiamos los emojis del inicio del texto para que no salgan duplicados abajo
+        const cleanMsg = msg.replace('⚠️', '').replace('🏆', '').replace('📂', '').trim();
+
+        const iconEl = document.getElementById('benefit-alert-icon');
+        const titleEl = document.getElementById('benefit-alert-title');
+
+        if (isWarn) {
+          if (iconEl) iconEl.innerText = '⚠️';
+          if (titleEl) titleEl.innerText = 'ATENCIÓN';
+        } else if (isArchive) {
+          if (iconEl) iconEl.innerText = '📂';
+          if (titleEl) titleEl.innerText = '¡PARTIDA ARCHIVADA!';
+        } else {
+          if (iconEl) iconEl.innerText = '🎁';
+          if (titleEl) titleEl.innerText = '¡RECOMPENSA APLICADA!';
+        }
+
+        document.getElementById('benefit-alert-text').innerText = cleanMsg;
         document.getElementById('modal-benefit-alert').classList.remove('hidden');
       }
 
@@ -2526,6 +2629,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
       closeFinalScoring() {
         this.showScreen('screen-home');
         this.updateHomeView();
+        this.autoSaveGame();
       }
 
       renderFinalTable() {
@@ -2557,7 +2661,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
           this.players.forEach((p, idx) => {
             let val = r.key === "leader" ? p.leader : (r.key === "emp0" ? p.empireScores[0] : (r.key === "emp1" ? p.empireScores[1] : (r.key === "emp2" ? p.empireScores[2] : (r.key === "money" ? p.stock.money : p[r.key] || 0))));
             if (r.type === "text") {
-              html += `<td class="border border-[#5C4433] px-0.5 py-0 text-center text-[10px] font-bold truncate">${val}</td>`;
+              html += `<td class="border border-[#5C4433] px-0.5 py-0 text-center text-[8.5px] font-bold truncate">${val}</td>`;
             } else {
               html += `
                 <td class="border border-[#5C4433] px-0 py-0 text-center">
@@ -2604,6 +2708,7 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         const totalCell = document.getElementById(`total-cell-${playerIdx}`);
         if (totalCell) totalCell.innerText = this.calculateFinalTotal(p);
         this.updateWinnerBanner();
+        this.autoSaveGame();
       }
 
       calculateFinalTotal(p) {
@@ -3010,6 +3115,309 @@ url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMExce
         ctx.fillText('_______ / _______', tableX + 740, footY + 55);
 
         return canvas;
+      }
+
+      /* ========================================================
+         Partidas Guardadas" y "Ranking / Histórico
+         ======================================================== */
+      // Actualiza el acumulador de tiempo real jugado
+      updatePlayTime() {
+        if (this.gameInProgress && this.sessionStartTime) {
+          const now = Date.now();
+          const delta = now - this.sessionStartTime;
+          // Si por algún bloqueo extraño pasan más de 3 horas sin tocar nada, limitamos el salto
+          if (delta > 0 && delta < 3 * 3600 * 1000) {
+            this.elapsedMs += delta;
+          }
+          this.sessionStartTime = now;
+        }
+      }
+
+      formatDuration(ms) {
+        const totalMins = Math.max(1, Math.round(ms / 60000));
+        const hrs = Math.floor(totalMins / 60);
+        const mins = totalMins % 60;
+        return hrs > 0 ? `${hrs}h ${mins}m` : `${mins} min`;
+      }
+
+      // Crea el nombre "Partida_X_fecha" y hace el primer guardado al empezar
+      initNewGameSave() {
+        // Usamos un contador persistente para que los números nunca se repitan ni colisionen al borrar
+        let saveCount = parseInt(localStorage.getItem('mosaic_save_counter') || '0') + 1;
+        localStorage.setItem('mosaic_save_counter', saveCount);
+
+        const fecha = new Date().toISOString().slice(0, 10);
+        this.currentGameId = `Partida_${saveCount}_${fecha}`;
+        this.elapsedMs = 0;
+        this.sessionStartTime = Date.now();
+        this.autoSaveGame();
+      }
+
+      // Machaca el registro de la partida actual con todos los datos al día
+      autoSaveGame() {
+        if (!this.gameInProgress || !this.currentGameId) return;
+        this.updatePlayTime();
+
+        const saves = JSON.parse(localStorage.getItem('mosaic_saved_games') || '{}');
+        saves[this.currentGameId] = {
+          id: this.currentGameId,
+          updatedAt: new Date().toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' }),
+          elapsedMs: this.elapsedMs,
+          playerCount: this.playerCount,
+          players: this.players,
+          currentEmpireRound: this.currentEmpireRound,
+          empireRegionData: this.empireRegionData,
+          empireGovScores: this.empireGovScores,
+          goldenAgesData: this.goldenAgesData,
+          achievementsData: this.achievementsData
+        };
+        localStorage.setItem('mosaic_saved_games', JSON.stringify(saves));
+      }
+
+      // Abre la lista de partidas para continuar
+      openSavedGamesModal() {
+        const saves = JSON.parse(localStorage.getItem('mosaic_saved_games') || '{}');
+        const keys = Object.keys(saves);
+        const container = document.getElementById('saved-games-container');
+        container.innerHTML = '';
+
+        if (keys.length === 0) {
+          container.innerHTML = `<p class="text-center italic text-xs text-[#5C4433] py-6">No hay partidas guardadas en curso.</p>`;
+        } else {
+          keys.reverse().forEach(id => {
+            const g = saves[id];
+            const pNames = g.players.map(p => `${p.name} (${this.calculateFinalTotal(p)} PV)`).join(' • ');
+            const div = document.createElement('div');
+            div.className = "parchment-card p-2 rounded-lg flex items-center justify-between gap-2 border border-[#8C6D4F]";
+            div.innerHTML = `
+              <div class="text-left overflow-hidden">
+                <span class="cinzel font-extrabold text-[10px] text-[#822017] block truncate">${g.id}</span>
+                <span class="text-[8px] text-[#5C4433] block">⏱️ ${this.formatDuration(g.elapsedMs || 0)} • Últ. vez: ${g.updatedAt}</span>
+                <span class="text-[8.5px] text-[#2B1A10] font-semibold block truncate">${pNames}</span>
+              </div>
+              <div class="flex gap-1 flex-shrink-0">
+                <button onclick="app.loadSavedGame('${g.id}')" class="btn-roman text-[8.5px] px-2 py-1 rounded font-bold">▶ Cargar</button>
+                <button onclick="app.deleteSavedGame('${g.id}')" class="btn-secondary text-[8.5px] px-1.5 py-1 rounded font-bold">🗑️</button>
+              </div>
+            `;
+            container.appendChild(div);
+          });
+        }
+        document.getElementById('modal-saved-games').classList.remove('hidden');
+      }
+
+      loadSavedGame(gameId) {
+        const saves = JSON.parse(localStorage.getItem('mosaic_saved_games') || '{}');
+        const g = saves[gameId];
+        if (!g) return;
+
+        this.currentGameId = g.id;
+        this.elapsedMs = g.elapsedMs || 0;
+        this.sessionStartTime = Date.now(); // Arranca el nuevo tramo de sesión
+        this.playerCount = g.playerCount;
+        this.players = g.players;
+        this.currentEmpireRound = g.currentEmpireRound || 0;
+        this.empireRegionData = g.empireRegionData || [{}, {}, {}];
+        this.empireGovScores = g.empireGovScores || [{}, {}, {}];
+        if (g.goldenAgesData) this.goldenAgesData = g.goldenAgesData;
+        if (g.achievementsData) this.achievementsData = g.achievementsData;
+
+        this.gameInProgress = true;
+        document.getElementById('modal-saved-games').classList.add('hidden');
+        this.showScreen('screen-home');
+        this.updateHomeView();
+      }
+
+      deleteSavedGame(gameId) {
+        this.pendingDeleteGameId = gameId;
+        const labelEl = document.getElementById('delete-game-id-label');
+        if (labelEl) labelEl.innerText = gameId;
+        document.getElementById('modal-delete-confirm').classList.remove('hidden');
+      }
+
+      cancelDeleteSavedGame() {
+        this.pendingDeleteGameId = null;
+        document.getElementById('modal-delete-confirm').classList.add('hidden');
+      }
+
+      confirmDeleteSavedGame() {
+        if (!this.pendingDeleteGameId) return;
+        const saves = JSON.parse(localStorage.getItem('mosaic_saved_games') || '{}');
+        delete saves[this.pendingDeleteGameId];
+        localStorage.setItem('mosaic_saved_games', JSON.stringify(saves));
+        
+        this.pendingDeleteGameId = null;
+        document.getElementById('modal-delete-confirm').classList.add('hidden');
+        this.openSavedGamesModal(); // Actualiza la lista de partidas guardadas
+      }
+
+      // Finaliza la partida, la pasa al Histórico para el Ranking y borra el autoguardado temporal
+      finishAndArchiveGame() {
+        if (!this.gameInProgress || this.players.length === 0) return;
+        this.updatePlayTime();
+
+        const ranked = [...this.players].sort((a, b) => this.calculateFinalTotal(b) - this.calculateFinalTotal(a));
+        const history = JSON.parse(localStorage.getItem('mosaic_finished_history') || '[]');
+
+        history.unshift({
+          id: this.currentGameId || `Partida_${history.length + 1}`,
+          date: new Date().toLocaleDateString('es-ES'),
+          elapsedMs: this.elapsedMs,
+          winner: ranked[0].name,
+          players: ranked.map(p => ({
+            name: p.name,
+            leader: p.leader,
+            score: this.calculateFinalTotal(p)
+          }))
+        });
+        localStorage.setItem('mosaic_finished_history', JSON.stringify(history));
+
+        // Eliminamos de partidas en curso porque ya ha terminado
+        if (this.currentGameId) {
+          const saves = JSON.parse(localStorage.getItem('mosaic_saved_games') || '{}');
+          delete saves[this.currentGameId];
+          localStorage.setItem('mosaic_saved_games', JSON.stringify(saves));
+        }
+
+        this.showAlert(`🏆 Partida archivada en el Ranking (${this.formatDuration(this.elapsedMs)} jugados).`);
+        this.resetStateAndGoMenu();
+      }
+
+      // Modal de Estadísticas y Ranking
+      openStatsModal() {
+        document.getElementById('modal-stats').classList.remove('hidden');
+        this.switchStatsTab('ranking');
+      }
+
+      changeRankingSort(field) {
+        if (this.rankingSortField === field) {
+          this.rankingSortDesc = !this.rankingSortDesc; // Invierte el orden si tocas la misma columna
+        } else {
+          this.rankingSortField = field;
+          this.rankingSortDesc = true; // Por defecto de mayor a menor al cambiar de columna
+        }
+        this.switchStatsTab('ranking');
+      }
+
+      switchStatsTab(tab) {
+        const b1 = document.getElementById('tab-stats-ranking');
+        const b2 = document.getElementById('tab-stats-history');
+        const container = document.getElementById('stats-content-container');
+        container.innerHTML = '';
+
+        const history = JSON.parse(localStorage.getItem('mosaic_finished_history') || '[]');
+        const saves = Object.values(JSON.parse(localStorage.getItem('mosaic_saved_games') || '{}'));
+        const allGames = [
+          ...history,
+          ...saves.map(s => ({
+            id: s.id,
+            elapsedMs: s.elapsedMs || 0,
+            winner: null, // Las partidas en curso aún no suman victoria cerrada
+            players: s.players.map(p => ({ name: p.name, score: this.calculateFinalTotal(p) }))
+          }))
+        ];
+
+        if (tab === 'ranking') {
+          b1.className = "cinzel text-[9.5px] py-1 px-2 font-bold bg-[#822017] text-[#F4EAD5] rounded border border-[#D4AF37]";
+          b2.className = "cinzel text-[9.5px] py-1 px-2 font-bold bg-[#DFD0B4] text-[#2B1D12] rounded border border-[#8C6D4F]";
+
+          const statsMap = {};
+          allGames.forEach(g => {
+            g.players.forEach(p => {
+              const key = p.name.trim().toLowerCase();
+              if (!statsMap[key]) {
+                statsMap[key] = { name: p.name.trim(), games: 0, wins: 0, totalPV: 0, totalMs: 0 };
+              }
+              statsMap[key].games += 1;
+              statsMap[key].totalPV += p.score;
+              statsMap[key].totalMs += (g.elapsedMs || 0);
+              if (g.winner && g.winner.trim().toLowerCase() === key) {
+                statsMap[key].wins += 1;
+              }
+            });
+          });
+
+          const playersArr = Object.values(statsMap).map(st => ({
+            ...st,
+            avgPV: st.games > 0 ? parseFloat((st.totalPV / st.games).toFixed(1)) : 0,
+            hours: parseFloat((st.totalMs / 3600000).toFixed(1))
+          }));
+
+          // Ordenación dinámica según la cabecera seleccionada
+          const f = this.rankingSortField;
+          const dir = this.rankingSortDesc ? -1 : 1;
+          playersArr.sort((a, b) => {
+            if (a[f] !== b[f]) return (a[f] - b[f]) * dir;
+            return (b.totalPV - a.totalPV); // Desempate por PV totales
+          });
+
+          if (playersArr.length === 0) {
+            container.innerHTML = `<p class="text-center italic text-xs text-[#5C4433] py-6">Aún no hay datos registrados.</p>`;
+            return;
+          }
+
+          const arrow = (col) => this.rankingSortField === col ? (this.rankingSortDesc ? ' ▼' : ' ▲') : '';
+          const thClass = (col) => `border border-[#5C4433] p-1 text-center cursor-pointer select-none transition ${
+            this.rankingSortField === col ? 'bg-[#822017] text-[#F4EAD5]' : 'hover:bg-[#C8B390]'
+          }`;
+
+          let tableHtml = `
+            <div class="text-[11px] italic text-center text-[#4A3525] mb-1">
+              💡 Toca cualquier columna de la cabecera para ordenar el ranking
+            </div>
+            <table class="w-full text-[8px] border-collapse border border-[#5C4433]">
+              <thead>
+                <tr class="bg-[#D5C3A6] cinzel text-[#2B1A10] font-extrabold">
+                  <th class="border border-[#5C4433] p-1 text-left">JUGADOR</th>
+                  <th onclick="app.changeRankingSort('games')" class="${thClass('games')}">PART.${arrow('games')}</th>
+                  <th onclick="app.changeRankingSort('wins')" class="${thClass('wins')}">🏆${arrow('wins')}</th>
+                  <th onclick="app.changeRankingSort('avgPV')" class="${thClass('avgPV')}">MEDIA${arrow('avgPV')}</th>
+                  <th onclick="app.changeRankingSort('totalPV')" class="${thClass('totalPV')}">TOTAL${arrow('totalPV')}</th>
+                  <th onclick="app.changeRankingSort('hours')" class="${thClass('hours')}">HORAS${arrow('hours')}</th>
+                </tr>
+              </thead>
+              <tbody>
+          `;
+
+          playersArr.forEach((pl, i) => {
+            const medal = i === 0 ? '🥇' : (i === 1 ? '🥈' : (i === 2 ? '🥉' : `${i + 1}.`));
+            tableHtml += `
+              <tr class="${i % 2 === 0 ? 'bg-[#FBF8F1]' : 'bg-[#F3E6CC]'}">
+                <td class="border border-[#5C4433] p-1 font-bold text-[#822017] truncate max-w-[85px]">${medal} ${pl.name}</td>
+                <td class="border border-[#5C4433] p-1 text-center font-bold">${pl.games}</td>
+                <td class="border border-[#5C4433] p-1 text-center font-bold text-[#5C3B00]">${pl.wins}</td>
+                <td class="border border-[#5C4433] p-1 text-center font-extrabold text-[#2B1A10]">${pl.avgPV}</td>
+                <td class="border border-[#5C4433] p-1 text-center font-bold">${pl.totalPV}</td>
+                <td class="border border-[#5C4433] p-1 text-center">${pl.hours}h</td>
+              </tr>
+            `;
+          });
+          tableHtml += `</tbody></table>`;
+          container.innerHTML = tableHtml;
+
+        } else {
+          b1.className = "cinzel text-[9.5px] py-1 px-2 font-bold bg-[#DFD0B4] text-[#2B1D12] rounded border border-[#8C6D4F]";
+          b2.className = "cinzel text-[9.5px] py-1 px-2 font-bold bg-[#822017] text-[#F4EAD5] rounded border border-[#D4AF37]";
+
+          if (history.length === 0) {
+            container.innerHTML = `<p class="text-center italic text-xs text-[#5C4433] py-6">No hay partidas finalizadas en el archivo.</p>`;
+            return;
+          }
+
+          history.forEach(h => {
+            const pText = h.players.map(p => `${p.name} (${p.leader}: ${p.score} PV)`).join(' • ');
+            const card = document.createElement('div');
+            card.className = "parchment-card p-2 rounded border border-[#C8B390] text-left";
+            card.innerHTML = `
+              <div class="flex justify-between items-center">
+                <span class="cinzel font-extrabold text-[9.5px] text-[#822017]">🏆 ${h.winner} — ${h.id}</span>
+                <span class="text-[8px] text-[#5C4433]">⏱️ ${this.formatDuration(h.elapsedMs)} (${h.date})</span>
+              </div>
+              <p class="text-[8px] text-[#3B2616] mt-0.5">${pText}</p>
+            `;
+            container.appendChild(card);
+          });
+        }
       }
 
       /* ========================================================
